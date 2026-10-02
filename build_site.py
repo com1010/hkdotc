@@ -1,0 +1,471 @@
+#!/usr/bin/env python3
+# Build static site for HKDOTC.com (migrated from sites.google.com/view/hkdotc)
+import datetime
+from pathlib import Path
+
+SITE = Path('site')
+(SITE / 'assets' / 'css').mkdir(parents=True, exist_ok=True)
+
+LOGO = 'assets/img/5bba947a49.jpg'      # HKD OTC logo
+BANNER = 'assets/img/75d8f877d2.jpg'    # 香港OTC聯盟 banner
+CANON = 'https://hkdotc.com/'
+TODAY = datetime.date.today().isoformat()
+
+JSONLD = '''<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "香港OTC聯盟 HKOTC Alliance",
+  "alternateName": "Hong Kong OTC Alliance",
+  "url": "https://hkdotc.com/",
+  "logo": "https://hkdotc.com/assets/img/5bba947a49.jpg",
+  "description": "香港數字資產 Web3 安全聯盟 — Alliance of Hong Kong's leading OTC Virtual Asset Service Providers (VASP). HK Web3 Cybersecurity Alliance HKW3CA.",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Hankow Centre, 5-15 Hankow Road",
+    "addressLocality": "Tsim Sha Tsui, Kowloon",
+    "addressCountry": "HK"
+  },
+  "sameAs": [
+    "https://x.com/hkdotc",
+    "https://Facebook.com/hkdotc",
+    "https://t.me/com2049"
+  ]
+}
+</script>'''
+
+def head():
+    return f'''<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>香港OTC聯盟 HKOTC Alliance — 香港數字資產 Web3 安全聯盟 | HKDOTC.com</title>
+<meta name="description" content="香港OTC聯盟 HKDOTC.com — 香港數字虛擬資產場外交易(OTC)服務商聯盟、香港Web3安全聯盟 HKW3CA。BTC/USDT/USDC 場外交易、KYC/AML 合規、SFC 監管動態。Hong Kong OTC Alliance for digital asset service providers." />
+<meta property="og:title" content="香港OTC聯盟 HKOTC Alliance — HKDOTC.com" />
+<meta property="og:description" content="香港數字虛擬資產場外交易服務商聯盟 · 香港 Web3 安全聯盟。Alliance of Hong Kong's leading OTC Virtual Asset Service Providers." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="{CANON}" />
+<meta property="og:image" content="{CANON}{BANNER}" />
+<meta property="og:site_name" content="HKDOTC.com 香港OTC聯盟" />
+<link rel="canonical" href="{CANON}" />
+<link rel="icon" type="image/jpeg" href="{LOGO}" />
+<link rel="stylesheet" href="assets/css/style.css" />
+{JSONLD}
+</head>
+<body>
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="#top"><img src="{LOGO}" alt="HKDOTC.com 香港OTC聯盟 logo" /><span>香港OTC聯盟 <small>HKOTC Alliance</small></span></a>
+    <nav class="main">
+      <a href="#about">關於 About</a>
+      <a href="#regulation">監管動態</a>
+      <a href="#legal">風險與法律</a>
+      <a href="#service">服務</a>
+      <a href="#how">交易流程</a>
+      <a href="#members">聯盟成員</a>
+      <a href="#compliance">KYC/AML</a>
+      <a href="#contact">聯絡 Contact</a>
+    </nav>
+  </div>
+</header>
+'''
+
+HERO = f'''<main id="top">
+<section class="hero">
+  <div class="wrap">
+    <img class="banner" src="{BANNER}" alt="香港OTC聯盟 HKDOTC.com" />
+    <h1>香港OTC聯盟 <span class="en">HKOTC Alliance</span></h1>
+    <p class="tagline">香港數字資產 Web3 安全聯盟 · Hong Kong Web3 Cybersecurity Alliance (HKW3CA)</p>
+    <p class="sub">HongKong OTC 聯盟 — Alliance of Hong Kong's leading OTC Virtual Asset Service Providers (VASP)。香港數字虛擬資產場外交易服務聯盟（Web3A.org · HKOTC.co · RWA1.net）。</p>
+    <div class="contact-chips">
+      <a class="chip" href="https://t.me/com2049" target="_blank" rel="noopener">Telegram @Com2049</a>
+      <a class="chip" href="https://wa.me/85296981019" target="_blank" rel="noopener">WhatsApp 諮詢 +852-96981019</a>
+      <a class="chip" href="https://x.com/hkdotc" target="_blank" rel="noopener">X.com @HKDOTC</a>
+      <a class="chip" href="https://Facebook.com/hkdotc" target="_blank" rel="noopener">Facebook.com/hkdotc</a>
+    </div>
+  </div>
+</section>
+'''
+
+ABOUT = '''
+<section class="section" id="about">
+  <div class="wrap">
+    <div class="sec-head"><span class="kicker">About 關於</span><h2>香港OTC聯盟 HKOTC Alliance</h2></div>
+    <div class="bio">
+      <p><b>香港OTC聯盟</b>（HKOTC Alliance · HKDOTC.com）是由一群值得信賴的香港團隊組成，團員擁有卓越的比特幣 BTC、ETH、USDT、USDC 及加密貨幣知識。我們在香港交易比特幣已超過 6 年，在可靠性、經濟性、安全性和便利性方面的優勢引領行業。</p>
+      <p>HKDOTC.com, based in Hong Kong, is made up of a team of trusted traders with excellent bitcoin and cryptocurrency knowledge. We have been trading Bitcoin in Hong Kong for more than 10 years and lead the industry in terms of reliability, affordability, safety and convenience.</p>
+      <p><b>地址 Address：</b>香港九龍尖沙咀漢口道5-15號漢口中心 Hankow Centre, 5-15 Hankow Road, Tsim Sha Tsui, Kowloon, Hong Kong</p>
+    </div>
+  </div>
+</section>
+'''
+
+REGULATION = '''
+<section class="section alt" id="regulation">
+  <div class="wrap">
+    <div class="sec-head"><span class="kicker">Regulation 監管動態</span><h2>香港數字資產監管最新動態</h2></div>
+    <div class="card-wide">
+      <h3>財庫局局長許正宇發表《香港數字資產發展政策宣言2.0》</h3>
+      <p><a href="https://www.info.gov.hk/gia/general/202506/27/P2025062700368.htm" target="_blank" rel="noopener">政府新聞公報（2025年6月27日）↗</a></p>
+    </div>
+    <div class="card-wide">
+      <h3>財庫局 FSTB 與證監會 SFC 就規管數字資產交易及託管服務的立法建議進行諮詢</h3>
+      <p class="muted">2025/6/27 — 公眾諮詢至 2025/8/29</p>
+      <p>財經事務及庫務局（財庫局 FSTB）和證券及期貨事務監察委員會（證監會 SFC）就設立數字資產（虛擬資產）交易和託管服務提供者發牌制度的立法建議，展開聯合公眾諮詢。經調整的立法建議涵蓋數字資產交易服務提供者的發牌制度，以及數字資產託管服務提供者的發牌制度。在擬議的兩個發牌制度下，證監會 SFC 將擔當標準制訂者，負責制訂適用於持牌和註冊數字資產交易和託管服務提供者的規管要求，而香港金融管理局（金管局 HKMA）則會擔當前線監管機構，監管已註冊為可提供相關服務的銀行及儲值支付工具。</p>
+      <div class="two-col">
+        <div>
+          <h4>（一）數字資產交易服務提供者的發牌制度</h4>
+          <ul>
+            <li>任何人如在香港從事提供數字資產交易服務的業務，須獲證監會 SFC 發牌或註冊；</li>
+            <li>不論服務透過實體店及／或其他平台提供，涵蓋簡單交易服務（如數字資產之間或與法定貨幣之間的兌換）及較複雜服務（如經紀活動、大宗交易、顧問或資產管理）；</li>
+            <li>持牌人或註冊人須符合適當人選評定準則（Fit &amp; Proper Test）及一系列規管要求：財政資源、知識和經驗、風險管理、財務匯報和披露、業務操守、資料及通知、備存記錄、妥善保障客戶資產和投資者保障措施等；</li>
+            <li>發牌制度將於相關法律條文生效當日全面實施，不設「被當作已獲發牌」的安排。</li>
+          </ul>
+        </div>
+        <div>
+          <h4>（二）數字資產託管服務提供者的發牌制度</h4>
+          <ul>
+            <li>任何人如在香港經營提供數字資產託管服務的業務，須獲證監會發牌或註冊。託管業務定義：以業務形式代客戶保管（i）數字資產；或（ii）能轉移客戶數字資產的工具（包括私人密鑰）；</li>
+            <li>與交易服務一樣，須符合適當人選評定準則及一系列規管要求；同樣在生效當日全面實施，不設「被當作已獲發牌」安排。</li>
+          </ul>
+        </div>
+      </div>
+      <p class="refs">諮詢文件：<a href="https://www.fstb.gov.hk/fsb/tc/publication/consult/doc/VADEALING_consultation_paper_tc.pdf" target="_blank" rel="noopener">交易服務發牌制度 PDF ↗</a> · <a href="https://www.fstb.gov.hk/fsb/tc/publication/consult/doc/VACUSTODY_consultation_paper_tc.pdf" target="_blank" rel="noopener">託管服務發牌制度 PDF ↗</a> · <a href="https://www.info.gov.hk/gia/general/202506/27/P2025062700385p.htm" target="_blank" rel="noopener">English version ↗</a></p>
+    </div>
+    <div class="card-wide">
+      <h3>香港《穩定幣條例草案》Stablecoins Bill</h3>
+      <p>《穩定幣條例草案》已於 2024 年 12 月 6 日刊登憲報，並於 2024 年 12 月 18 日提交立法會首讀，旨在引入針對與法定貨幣掛鈎的穩定幣（「指明穩定幣」）的發行及發售監管制度，並由香港金融管理局（HKMA）監督及執行。要點包括：</p>
+      <ul>
+        <li>現有發行人應儘快申請穩定幣發行人牌照，以享有過渡性安排（包括不違反期及臨時牌照）；</li>
+        <li>穩定幣制度生效後，非持牌虛擬資產場外交易（VA OTC）服務提供者可能無法在香港提供指明穩定幣（至少在 VA OTC 發牌制度生效前）；</li>
+        <li>向香港公眾發售及積極推廣未獲 HKMA 發牌發行人的指明穩定幣（可能包括 USDT、USDC 及海外發行的廣泛流通穩定幣）可能將會被禁止。</li>
+      </ul>
+      <p class="refs"><a href="https://www.info.gov.hk/gia/general/202412/06/P2024120500422.htm" target="_blank" rel="noopener">政府新聞公報（2024年12月6日）↗</a></p>
+    </div>
+    <div class="card-wide">
+      <h3>香港政府就規管虛擬資產場外交易 OTC 的立法建議進行諮詢</h3>
+      <p class="refs"><a href="https://www.info.gov.hk/gia/general/202402/08/P2024020800237.htm" target="_blank" rel="noopener">政府新聞公報（2024年2月8日）↗</a></p>
+    </div>
+  </div>
+</section>
+'''
+
+LEGAL = '''
+<section class="section" id="legal">
+  <div class="wrap">
+    <div class="sec-head"><span class="kicker">Legal 法律專欄</span><h2>香港加密貨幣 OTC 交易風險與法律保護</h2></div>
+    <div class="card-wide">
+      <h3>1.1 散戶與場外交易 OTC 的定義</h3>
+      <p>散戶，通常指主要以少量自有資金進行虛擬貨幣交易的投資者。場外交易市場（Over-the-Counter）也叫櫃檯交易市場，是指不透過中央交易所、直接在交易所外進行的交易。交易所交易（場內交易）基於對交易所的信任進行交易；場外交易則以彼此間信賴為基礎。因為 OTC 交易的內在優勢，有時大宗交易的機構投資者或高淨值人士也會選擇場外交易。</p>
+      <p>2024年2月8日，香港政府發布《有關規管虛擬資產場外交易的立法建議》公眾諮詢文件，建議將「虛擬資產場外交易」定義為：<b>以業務形式提供虛擬資產現貨交易服務</b>，無論透過實體店（包括自動櫃員機 ATM）或其他形式（如網路平台），並明確排除已取得 VASP 牌照的交易平台。</p>
+      <p>鑑於「虛擬資產場外交易業務」僅包括以業務形式提供的服務（Business Services），個人與個人（P2P）或其他實體之間並非以業務目的進行的虛擬資產買賣不受牌照要求限制。但這並不表示散戶透過 OTC 交易虛擬貨幣不存在其他風險。</p>
+    </div>
+    <div class="card-wide">
+      <h3>1.2 香港虛擬貨幣 OTC 交易的主要形式</h3>
+      <p><b>線上：</b>在沒有中介參與的情況下，用戶之間直接買賣加密貨幣。一般由平台充當撮合媒介，但資金與虛擬貨幣的流轉並非透過平台，而是以其他支付管道進行。典型例子是 OTC DEX。</p>
+      <p><b>線下：</b>根據人脈網絡等管道面對面溝通完成交易，例如香港街頭的虛擬貨幣兌換店鋪、ATM 兌換機等。</p>
+      <p>根據香港執法機關初步實地觀察的粗略估計，全港約有 <b>200 間</b>實體虛擬資產場外交易店（包括 ATM 操作的場外交易店）正在運作，以及約有 <b>250 個</b>網絡上活躍的虛擬資產買賣服務商。</p>
+      <p>虛擬貨幣 OTC 交易具有交易彈性、減少價格滑點、參與門檻較低等優勢，對剛入門的散戶相對友善。</p>
+    </div>
+    <div class="card-wide">
+      <h3>2.1 虛擬貨幣 OTC 交易風險概述</h3>
+      <ul>
+        <li><b>違法犯罪風險：</b>散戶在 OTC 交易中，尤其跨國交易中，容易因違反各司法轄區民事、行政、刑事、稅務等規定而承擔法律責任。</li>
+        <li><b>資料外洩風險：</b>OTC 商家未保護好散戶個人資料或遭遇駭客攻擊，導致個人隱私資訊外洩。</li>
+        <li><b>交易損失風險：</b>因 OTC 商家不合規、市場波動、價格操控或交易對手違約等原因，導致財產損失。</li>
+      </ul>
+      <p>由於大陸的加密貨幣監管較為嚴格，香港 OTC 交易為大陸投資者提供了重要交易管道。</p>
+    </div>
+    <div class="card-wide">
+      <h3>2.2 違法犯罪風險</h3>
+      <ol>
+        <li><b>散戶涉嫌洗錢或開設賭場等相關犯罪，收到違法所得資金而導致帳戶被凍結。</b>OTC 交易仰賴雙方彼此信任，部分交易對手會利用資訊不對稱、針對缺乏經驗的散戶設下圈套，誘惑其接受可能更優惠的價格，進而把散戶變成轉移贓物的工具。此外，有些不良 OTC 商家本身就涉及犯罪活動，或被犯罪集團利用進行洗錢。香港的反洗錢（AML）、反恐融資（CTF）規定也要求在香港進行 OTC 的散戶提高警惕。</li>
+        <li><b>因違反外匯管理規定買賣外匯而承擔法律責任。</b>根據《中華人民共和國外匯管理條例》，私自買賣外匯、變相買賣外匯、倒買倒賣外匯，或非法介紹買賣外匯數額較大的，由外匯管理機關給予警告，沒收違法所得並處罰款；構成犯罪的依法追究刑事責任。若以虛擬貨幣為媒介，透過「外匯—虛擬貨幣—人民幣」的兌換實現價值轉換，屬於變相買賣外匯，往往會以非法經營罪追究刑事責任。</li>
+        <li><b>因違反香港稅法而遭遇罰款或監禁。</b>根據香港稅務局《解釋及執行指引第39號》（DIPN39）第47條，「加密貨幣業務」包括：加密貨幣交易（trading）、兌換（exchange）、挖礦（mining）。在香港進行的加密貨幣業務活動所產生的香港來源利潤須繳納利得稅。香港採用屬地來源稅制，實施兩級利得稅稅率：未合併業務首 HK$200 萬應評稅利潤稅率 7.5%，超過部分 15%。未按時繳納稅款可能導致：固定罰款 HK$10,000、罰款最高可達少繳稅款三倍，嚴重情況下可被判處最高三年監禁。經常性、大額交易的投資者需格外注意稅務要求。</li>
+      </ol>
+    </div>
+    <div class="card-wide">
+      <h3>2.3 資料外洩風險</h3>
+      <ol>
+        <li><b>技術複雜性增加安全保障難度。</b>大規模 OTC 交易需處理大量資金和數位資產轉移，可能出現區塊鏈網路問題、錢包安全性、交易確認延遲以及基礎設施可靠性問題；行政問題涉及身份驗證、條款談判、法律文件執行和交易記錄管理。</li>
+        <li><b>第三方平台安全漏洞。</b>提供 OTC 交易便利的第三方平台容易受到安全漏洞和資訊外洩影響，可能導致交易者身份、交易細節等敏感資料遭未授權存取。網路釣魚攻擊和惡意軟體等威脅可能危及平台完整性和使用者資產安全。</li>
+        <li><b>知名交易所也曾面臨外洩風險。</b>即便是火幣 Huobi 這樣的知名交易所，2021 年也曾被白帽揭露資訊外洩風險，涉及大範圍 OTC 交易資訊、大戶資訊、客戶資訊、內部技術架構等。部分犯罪集團會利用 OTC 平台竊取用戶訊息，部分無良 OTC 平台甚至向外倒賣用戶訊息。</li>
+      </ol>
+    </div>
+    <div class="card-wide">
+      <h3>2.4 交易損失風險</h3>
+      <ol>
+        <li><b>信任風險。</b>相較於中心化交易所，OTC 交易對交易雙方的信任程度要求更高。任何一方違約、延遲履約或不完全履約，加上資訊不對稱、溝通障礙，都可能加劇信任風險，導致交易破裂乃至信任崩塌。</li>
+        <li><b>詐欺行為。</b>特別是涉及大額資金或跨國交易。常見騙局包括虛構身份、誇大交付虛擬資產的能力、欺詐性退款（收到數位資產後撤銷支付）等。</li>
+        <li><b>撮合方詐欺或破產。</b>在 OTC 交易中，撮合方的任何失敗都可能產生連鎖反應，對所有交易參與者的財產造成損害。</li>
+        <li><b>跨境交易風險。</b>尤其是大陸、香港之間的跨境交易，法律體系、監管框架和執法能力的差異增加交易複雜性；管轄權問題可能導致違約或詐欺時難以尋求法律救濟。</li>
+      </ol>
+    </div>
+    <div class="card-wide">
+      <h3>3. 散戶如何保護自己並實現合規交易？</h3>
+      <div class="two-col">
+        <div>
+          <h4>3.1 因應違法犯罪風險</h4>
+          <ul>
+            <li><b>增強合規意識：</b>時刻關注最新法規動態，特別是 AML、CTF 和稅務合規要求。</li>
+            <li><b>避免參與可疑交易：</b>不購買來源不明的虛擬貨幣，避免成為非法資金流轉鏈；記錄所有交易明細，以便證明資金合法來源。</li>
+            <li><b>尋求專業支援：</b>尋找熟悉虛擬貨幣交易和相關法律的專業律師，提供許可證申請、合規協議草擬和糾紛解決支援。</li>
+          </ul>
+        </div>
+        <div>
+          <h4>3.2 因應資料外洩風險</h4>
+          <ul>
+            <li><b>盡職調查：</b>核實交易對方身份，評估其財務穩定性，審查交易歷史。KYC 程序和背景調查可提供有效資訊。</li>
+            <li><b>謹慎提交個人資訊：</b>僅在必須情況下提供個人識別資訊（如 KYC），避免將敏感資訊透露給第三方。</li>
+            <li><b>注意網路安全：</b>僅透過受信任裝置存取交易帳戶，避免使用公共 Wi-Fi，設定複雜密碼並定期變更。</li>
+          </ul>
+          <h4>3.3 因應交易損失風險</h4>
+          <ul>
+            <li><b>安全儲存資金：</b>多重簽名錢包（Multisig）和冷儲存（Cold storage）對保護大量持倉至關重要。</li>
+            <li><b>使用第三方託管服務（Trust Custody）：</b>由可靠的第三方託管服務充當中間人，在雙方履行義務之前持有資金或資產，特別適用於大宗交易。</li>
+            <li><b>明確約定合約內容：</b>指定交貨時間表、支付方式和爭議解決機制等條款，減少模糊性。</li>
+          </ul>
+        </div>
+      </div>
+      <p><b>HK OTC 結論：</b>香港虛擬貨幣市場為散戶投資者提供了豐富的機遇，但也伴隨著複雜的風險與挑戰。從違法犯罪、資料外洩到交易損失，每種風險都可能對投資人構成威脅。散戶在進入市場前必須做好充分準備：合規操作、加強安全意識和理性投資是關鍵；了解各地法律法規、尋求專業顧問支持，才能在複雜的市場環境中有效維護自身權益，實現長期成長、安心衝浪。</p>
+    </div>
+    <div class="card-wide">
+      <h3>USDT 穩定幣市場動態</h3>
+      <p>穩定幣市場的領頭羊 USDT 市值已突破 $1,070 億美元，發行商 Tether 去年第四季實現 $28.5 億美元淨利潤，創歷史新高，並累積超額準備金達 $54 億美元。Tether 2023 年實現 $62 億美元淨利潤，相當於高盛的 78%、摩根士丹利的 72%，但員工數量僅約 100 人（高盛 49,000 人、摩根士丹利 82,000 人）——Tether 每位員工創造淨利潤約 $6,200 萬美元。USDT 規模年初至今成長超 60%（由 $662.5 億增至突破 $1,070 億美元）。流通以波場鏈 Tron 為主（逾 50%），其次是以太坊 ETH（40.46%）、BSC（3.44%）和 Arbitrum（2%）。</p>
+    </div>
+  </div>
+</section>
+'''
+
+SERVICE = '''
+<section class="section alt" id="service">
+  <div class="wrap">
+    <div class="sec-head"><span class="kicker">Services 服務</span><h2>HKDOTC.com 專業 OTC 服務</h2></div>
+    <p class="center-note">為香港人提供的最方便及快捷購買數字虛擬資產 BTC / USDT 的方法。一個信息就可以完成交易，交易時間平均只需 10 分鐘。即時 WhatsApp 交易，價格實時更新，沒有隱藏費用。</p>
+    <div class="grid3">
+      <div class="card"><h3>🔒 安全 SAFE</h3><p>與交易所不同，我們不會保存你的加密貨幣。您的資金不會受到被攻擊風險。Unlike other digital asset and bitcoin exchanges, we don't keep your assets.</p></div>
+      <div class="card"><h3>💳 靈活支付 FLEXIBLE</h3><p>支持多間本地銀行轉賬、FPS、Alipay HK 交易。FPS, Alipay HK and local banks transfer available.</p></div>
+      <div class="card"><h3>⚡ 快速交易 FAST SETTLEMENT</h3><p>交易 10 分鐘內完成，交易過程方便快捷。Most OTC trades settled within 15 mins, trading process is simple and easy.</p></div>
+    </div>
+    <div class="card-wide">
+      <h3>幣種報價 Quotation（HK$ 7.8 · Updated Daily）</h3>
+      <div class="coin-tags">
+        <span>比特幣 Bitcoin BTC</span><span>以太幣 Ethereum ETH</span><span>泰達幣 Tether USDT</span><span>USDC</span>
+        <span>萊特幣 Litecoin LTC</span><span>比特幣現金 Bitcoin Cash BCH</span><span>瑞波幣 Ripple XRP</span><span>狗狗幣 Doge</span>
+        <span>Solana SOL</span><span>Cardano ADA</span><span>波卡 Polkadot DOT</span><span>Chainlink LINK</span><span>黃金 Gold-AUT</span>
+      </div>
+      <p class="muted">1. 價格僅供參考，交易前請與客服確認（WhatsApp +852-96981019）。Price is for reference only, please confirm with CS before trading.<br>2. 有些加密貨幣可能需要數個小時才能轉款成功，請耐心等候。Cryptocurrencies may take up to a few hours to confirm.</p>
+      <p class="muted">Fees 手續費：所有交易額在 HKD$5,000 以下，收取 HKD$100 手續費。</p>
+    </div>
+  </div>
+</section>
+'''
+
+HOW = '''
+<section class="section" id="how">
+  <div class="wrap">
+    <div class="sec-head"><span class="kicker">How to Trade 交易流程</span><h2>三步完成交易</h2></div>
+    <div class="grid3">
+      <div class="card"><span class="step">1</span><h3>留言 MESSAGE US</h3><p>在 WhatsApp 內傳訊息給 HKDOTC.com 交易員，告訴交易員你想交易什麼，交易員會給你報價。第一次買家請帶同身份證及地址證明到我們尖沙咀辦事處辦理開戶手續。</p></div>
+      <div class="card"><span class="step">2</span><h3>轉帳 TRANSFER</h3><p>請在 10 分鐘內付款到交易員的賬戶內。Transfer payment to the account provided by the trader within 10 mins.</p></div>
+      <div class="card"><span class="step">3</span><h3>完成 COMPLETE</h3><p>當交易員確認您的轉賬後，會把加密貨幣轉到您提供的地址上。When the trader has confirmed your transaction, they will transfer the cryptocurrency to the address you provided.</p></div>
+    </div>
+    <div class="card-wide">
+      <h3>實體門市 CryptoPanda.cc 尖沙咀總店</h3>
+      <p>九龍尖沙咀彌敦道 54 號美麗都大廈 59-60 號舖（地鐵 TST MTR D2 出口 / 招商永隆銀行正對面 / K11 商場旁）</p>
+      <p class="refs"><a href="https://surl.amap.com/gNX8JnW1gfIW" target="_blank" rel="noopener">高德地圖 ↗</a> · <a href="https://maps.app.goo.gl/S1iUyGTiBeyRTPDs9" target="_blank" rel="noopener">Google 地圖 ↗</a> · <a href="https://j.map.baidu.com/17/k1ri" target="_blank" rel="noopener">百度地圖 ↗</a></p>
+    </div>
+  </div>
+</section>
+'''
+
+MEMBERS = '''
+<section class="section alt" id="members">
+  <div class="wrap">
+    <div class="sec-head"><span class="kicker">Members 聯盟成員</span><h2>HKOTC 聯盟成員 Alliance Members</h2></div>
+    <div class="member-tags">
+      <span>香港區塊鏈協會 HKBA.club</span><span>亞洲區塊鏈學會 AsiaBCA.org</span><span>香港Web3安全聯盟 Web3A.org</span>
+      <span>HKDOTC.com</span><span>Milways.Finance</span><span>UAEC</span><span>CryptoPanda.cc</span><span>OTCXpert.com</span>
+      <span>ZBX.com</span><span>MatrixPort.com</span><span>OSL.com</span><span>Hashkey.com</span><span>LegendTrading.com</span>
+      <span>LookCard.com.hk</span><span>Klickl.com</span><span>Com2000.org</span><span>ITU Global · ITU.edu</span>
+      <span>HKFSI.edu.hk</span><span>9cat.io</span><span>AlgoHash.org</span><span>UniLive.io</span><span>SuperAngel.cc</span>
+      <span>Techub.news</span><span>BitCap.cc</span><span>iDom.capital</span><span>CryptoFlowHK.com</span>
+      <span>BillMining.co</span><span>AsiaBizGroup.com</span><span>BizChain.org</span><span>AABA.asia</span>
+      <span>AseanBlock.org</span><span>HongKongBlockchain.org</span><span>AMeta.club</span><span>DenaTrust.com</span>
+    </div>
+    <div class="card-wide">
+      <h3>香港證監會 SFC 持牌虛擬資產交易平台名單</h3>
+      <div class="table-scroll">
+      <table>
+        <tr><th>中央編號</th><th>公司名稱</th><th>平台</th><th>發牌日期</th></tr>
+        <tr><td>BPJ213</td><td>OSL Digital Securities Limited OSL數字證券有限公司</td><td>OSL Exchange</td><td>15/12/2020</td></tr>
+        <tr><td>BPL992</td><td>Hash Blockchain Limited</td><td>HashKey Exchange</td><td>09/11/2022</td></tr>
+        <tr><td>BPW549</td><td>Hong Kong Virtual Asset Exchange Limited 香港虛擬資產交易所有限公司</td><td>HKVAX</td><td>03/10/2024</td></tr>
+        <tr><td>BPO721</td><td>Hong Kong Digital Asset EX Limited 香港數字資產交易集團有限公司</td><td>HKbitEX</td><td>18/12/2024</td></tr>
+        <tr><td>BUA970</td><td>Accumulus GBA Technology (Hongkong) Co., Limited 雲賬戶大灣區科技(香港)有限公司</td><td>Accumulus</td><td>18/12/2024</td></tr>
+        <tr><td>BUN619</td><td>DFX Labs Company Limited</td><td>DFX Labs</td><td>18/12/2024</td></tr>
+        <tr><td>BUT670</td><td>EXIO Limited</td><td>EX.IO</td><td>18/12/2024</td></tr>
+        <tr><td>BUY578</td><td>Panthertrade (Hong Kong) Limited 猎豹交易（香港）有限公司</td><td>PantherTrade</td><td>27/01/2025</td></tr>
+        <tr><td>BUT913</td><td>YAX (Hong Kong) Limited</td><td>YAX</td><td>27/01/2025</td></tr>
+        <tr><td>BUQ956</td><td>Bullish HK Markets Limited</td><td>Bullish</td><td>18/02/2025</td></tr>
+        <tr><td>BSI739</td><td>Hong Kong BGE Limited</td><td>BGE</td><td>17/06/2025</td></tr>
+      </table>
+      </div>
+      <p class="refs"><a href="https://www.sfc.hk/TC/Welcome-to-the-Fintech-Contact-Point/Virtual-assets/Virtual-asset-trading-platforms-operators/Lists-of-virtual-asset-trading-platforms" target="_blank" rel="noopener">SFC 官方名單 ↗</a></p>
+    </div>
+    <div class="card-wide">
+      <h3>關於 ASEAN AI Blockchain Alliance（AABA.asia · AseanBlock.org）</h3>
+      <p>AABA 由聯合創始人 Albert Cheok（馬來西亞）、Timmy Tan（菲律賓）、Sing Wang、TonyTong.cc、Thomas Cheung（香港）、Josephine（越南）創立，是東南亞國家 AI、Blockchain 和 Web3 社群的領先行業協會，致力賦能會員利用 AI、Blockchain 和 Web3 技術實現業務增長與轉型。成員包括香港區塊鏈協會（HKBA.club）、粵港澳大湾区人工智能研究院 BAI、香港理工大學（PolyU）、香港科技大學（HKUST）、香港都會大學（HKMU）、香港金融管理學院（HKFSI）及位於美國矽谷的 International Technical University（ITU.edu）等，為東盟國家提供 Blockchain、AI 和 Web3 教育。</p>
+      <p class="refs">www.AABA.asia · www.AseanBlock.org · Facebook.com/AseanBlock · Email: AseanBlock@gmail.com</p>
+    </div>
+  </div>
+</section>
+'''
+
+COMPLIANCE = '''
+<section class="section" id="compliance">
+  <div class="wrap">
+    <div class="sec-head"><span class="kicker">KYC / AML</span><h2>嚴正聲明 📢 拒絕違規</h2></div>
+    <div class="card-wide notice">
+      <p>HKDOTC <b>不參與</b>任何虛擬貨幣交易平台推廣或代幣項目推介；<b>不提供</b>任何形式之投資建議、交易策略或收益承諾！HKDOTC 專注於專業場外交易 OTC 服務，堅決杜絕所有與傳銷（CX）、返利收益等有關可疑活動 ❌。</p>
+      <p>HKDOTC 所有交易均嚴格依據香港現行法例及監管框架操作，包括但不限於《海關條例》與《打擊洗錢條例》，全面執行 <b>KYC / AML</b> 程序，確保資金來源真實、用途合法。對於任何涉及不明資金、可疑鏈上交易結構或違規合作邀約，HKDOTC 將一律拒絕，並保留依法通報執法機關之權利 🛑。</p>
+      <p>HKDOTC 深信：制度比承諾更可靠，合規是交易存在的前提，報價不是參考，而是對信任的兌現。歡迎客戶查閱 <a href="https://www.sfc.hk" target="_blank" rel="noopener">香港證監會 SFC.HK</a> 或其他監管機構之官方資料以作了解。</p>
+    </div>
+    <div class="grid3">
+      <div class="card"><h3>KYC</h3><p>Know Your Customer 認識你的客戶 — 客戶識別流程 CIP（收集姓名、出生日期、地址、身份文件並核實）、客戶盡職調查 CDD、持續動態監測。個人文件：護照／駕照／住址證明／稅務資訊等；企業文件：營業執照、公司註冊資訊、股東資訊等。</p></div>
+      <div class="card"><h3>CDD</h3><p>Customer Due Diligence 客戶盡職審查 — 了解帳戶用途、開戶原因、財富或收入狀況、預期交易金額與數量、開戶資金來源及使用的金融服務類型。</p></div>
+      <div class="card"><h3>AML</h3><p>Anti-Money Laundering 打擊洗錢 — 嚴格執行香港《打擊洗錢條例》規定，監察可疑交易並依法通報。Trust Custody TCSP License Service Provider（DenaTrust.com）。</p></div>
+    </div>
+    <div class="card-wide">
+      <h3>提防虛擬貨幣騙局 · 香港 Web3 網絡安全聯盟</h3>
+      <p>如你曾在任何加密貨幣項目中懷疑被騙，或發現可疑項目，除了到警署報案，也請在我們的報告中心提供資料，令社群內其他人降低被騙風險，共同建構行業聲譽。HK Web3 CyberSecurity Alliance HKW3CSA · Web3A.org</p>
+    </div>
+    <div class="card-wide">
+      <h3>HKOTC 2021 新聞稿：HKD OTC.com 進軍美國 OTC 場外交易市場</h3>
+      <p class="muted">2021/9/21 PR</p>
+      <p>Net Savings Link, Inc. (USA OTC: NSAV), a cryptocurrency, blockchain and digital asset technology company, announced the acquisition of a 40% stake in Hong Kong Premium OTC Crypto Trading Desk HKDOTC.com / HKOTC — one of Hong Kong's most popular OTC crypto trading services, with 16 strategic crypto and blockchain partners, including Binance, Huobi, Bybit, LBank, CoinW and BW.com. HKDOTC.com offers fast settlement, flexible payment methods and secure trading, as unlike other digital asset and bitcoin exchanges, it doesn't hold client's assets. This team of traders has been trading Bitcoin BTC, Ethereum ETH, Tether USDT, USDC, Bitcoin Cash BCH in Hong Kong for more than 6 years and leads the industry in terms of reliability, affordability, safety and convenience.</p>
+      <p class="refs"><a href="https://www.globenewswire.com/news-release/2021/09/21/2300694/0/en/NSAV-ACQUIRES-40-STAKE-IN-PREMIUM-OTC-CRYPTO-TRADING-DESK-HKOTC-CO.html" target="_blank" rel="noopener">GlobeNewswire 原文 ↗</a></p>
+    </div>
+  </div>
+</section>
+'''
+
+CONTACT = '''
+<section class="section alt" id="contact">
+  <div class="wrap">
+    <div class="sec-head"><span class="kicker">Contact 聯絡</span><h2>聯繫我們 Contact Us</h2></div>
+    <div class="contact-grid">
+      <div class="card"><h3>📞 報價 Quotation</h3><p>WhatsApp / Tel：<b>+852-96981019</b><br>Telegram：<a href="https://t.me/com2049" target="_blank" rel="noopener">@Com2049</a></p></div>
+      <div class="card"><h3>🌐 聯盟網址</h3><p>www.HKDOTC.com · HKOTC.co<br>Web3A.org · RWA1.net</p></div>
+      <div class="card"><h3>📱 社群</h3><p><a href="https://Facebook.com/hkdotc" target="_blank" rel="noopener">Facebook.com/hkdotc</a><br><a href="https://x.com/hkdotc" target="_blank" rel="noopener">X.com @HKDOTC</a></p></div>
+    </div>
+  </div>
+</section>
+</main>
+'''
+
+FOOTER = f'''<footer class="site-foot">
+  <div class="wrap">
+    <img src="{LOGO}" alt="HKDOTC.com" />
+    <p><b>香港OTC聯盟 HKOTC Alliance · www.HKDOTC.com</b></p>
+    <p>Hong Kong Alliance of OTC Service Providers · 香港數字虛擬資產場外交易服務商聯盟 · 香港 Web3 安全聯盟 HKW3CA</p>
+    <p class="muted">Member of ASEAN Block Alliance (AseanBlock.org) · Hong Kong Blockchain Association (HKBA.club) · HK Web3 CyberSecurity Alliance (Web3A.org)</p>
+    <p class="muted">Powered by HKOTC · Link1.us · FoxAI.us · Formerly at sites.google.com/view/hkdotc · © {TODAY[:4]} HKDOTC.com</p>
+  </div>
+</footer>
+<script>
+document.addEventListener('click', e => {{
+  if (!e.target.closest('.site-head')) document.querySelector('nav.main')?.classList.remove('open');
+}});
+</script>
+</body>
+</html>'''
+
+CSS = ''':root { --red:#c8102e; --gold:#c9a227; --ink:#1a1a1a; --paper:#faf7f0; --card:#fff; --muted:#666; }
+* { box-sizing: border-box; }
+body { margin:0; font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif; color:var(--ink); background:var(--paper); line-height:1.75; }
+a { color:var(--red); text-decoration:none; }
+a:hover { text-decoration:underline; }
+img { max-width:100%; }
+.wrap { max-width:1080px; margin:0 auto; padding:0 20px; }
+.site-head { position:sticky; top:0; z-index:50; background:#fff; border-bottom:3px solid var(--red); box-shadow:0 2px 12px rgba(0,0,0,.06); }
+.site-head .wrap { display:flex; align-items:center; justify-content:space-between; gap:14px; padding:10px 20px; }
+.brand { display:flex; align-items:center; gap:10px; font-weight:800; color:var(--ink); }
+.brand img { width:42px; height:42px; object-fit:contain; }
+.brand small { display:block; font-weight:600; color:var(--red); font-size:.72rem; letter-spacing:1px; }
+nav.main { display:flex; flex-wrap:wrap; gap:4px; }
+nav.main a { padding:8px 10px; border-radius:8px; font-size:.9rem; color:var(--ink); font-weight:600; }
+nav.main a:hover { background:#fbeeee; color:var(--red); text-decoration:none; }
+@media (max-width:860px){ nav.main{ display:none; } nav.main.open{ display:flex; flex-direction:column; position:absolute; top:100%; left:0; right:0; background:#fff; padding:10px 16px; box-shadow:0 12px 24px rgba(0,0,0,.12);} }
+.hero { padding:46px 0 30px; text-align:center; background:linear-gradient(180deg,#fff, var(--paper)); }
+.hero .banner { max-width:560px; border-radius:16px; box-shadow:0 14px 40px rgba(0,0,0,.12); margin-bottom:22px; }
+.hero h1 { margin:.2em 0; font-size:2.4rem; }
+.hero h1 .en { color:var(--gold); }
+.tagline { font-weight:700; color:var(--red); margin:.3em 0; }
+.sub { color:var(--muted); max-width:820px; margin:0 auto; }
+.contact-chips { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin-top:18px; }
+.chip { background:#fff; border:2px solid var(--gold); border-radius:999px; padding:8px 16px; font-weight:700; color:var(--ink); }
+.chip:hover { background:var(--gold); color:#fff; text-decoration:none; }
+.section { padding:56px 0; }
+.section.alt { background:#f3ede1; }
+.sec-head { text-align:center; margin-bottom:30px; }
+.kicker { color:var(--red); font-size:.8rem; letter-spacing:2.5px; text-transform:uppercase; font-weight:800; }
+.sec-head h2 { margin:.2em 0 0; font-size:1.8rem; }
+.bio p, .card-wide p { margin:.7em 0; }
+.card-wide { background:var(--card); border:1px solid rgba(0,0,0,.07); border-radius:14px; padding:22px 26px; margin:14px auto; max-width:960px; box-shadow:0 6px 20px rgba(0,0,0,.05); }
+.card-wide h3 { margin-top:0; color:var(--red); }
+.card-wide h4 { margin-bottom:.3em; }
+.refs { font-size:.92rem; }
+.muted { color:var(--muted); font-size:.92rem; }
+.two-col { display:grid; grid-template-columns:1fr 1fr; gap:22px; }
+@media (max-width:760px){ .two-col { grid-template-columns:1fr; } }
+.grid3 { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; max-width:960px; margin:0 auto; }
+@media (max-width:820px){ .grid3 { grid-template-columns:1fr; } }
+.card { background:var(--card); border:1px solid rgba(0,0,0,.07); border-radius:14px; padding:20px 22px; box-shadow:0 6px 20px rgba(0,0,0,.05); }
+.card h3 { margin:.2em 0 .4em; color:var(--red); }
+.card p { margin:.4em 0; font-size:.95rem; }
+.step { display:inline-grid; place-items:center; width:38px; height:38px; border-radius:50%; background:var(--red); color:#fff; font-weight:800; font-size:1.1rem; }
+.center-note { text-align:center; max-width:820px; margin:0 auto 20px; color:var(--muted); }
+.coin-tags, .member-tags { display:flex; flex-wrap:wrap; gap:8px; margin:14px 0; }
+.coin-tags span, .member-tags span { background:#fff; border:1px solid rgba(0,0,0,.12); border-radius:999px; padding:6px 14px; font-size:.88rem; font-weight:600; }
+.coin-tags span { border-color:var(--gold); }
+.table-scroll { overflow-x:auto; }
+table { width:100%; border-collapse:collapse; font-size:.9rem; }
+th, td { border:1px solid rgba(0,0,0,.12); padding:8px 10px; text-align:left; }
+th { background:#fbeeee; color:var(--red); }
+.notice { border-left:5px solid var(--red); }
+.contact-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; max-width:960px; margin:0 auto; }
+@media (max-width:820px){ .contact-grid { grid-template-columns:1fr; } }
+.site-foot { background:var(--ink); color:#eee; text-align:center; padding:40px 20px; }
+.site-foot img { width:64px; border-radius:12px; }
+.site-foot p { margin:.4em 0; }
+.site-foot .muted { color:#aaa; font-size:.85rem; }
+'''
+
+pages = {
+    'index.html': head() + HERO + ABOUT + REGULATION + LEGAL + SERVICE + HOW + MEMBERS + COMPLIANCE + CONTACT + FOOTER,
+    'assets/css/style.css': CSS,
+    'robots.txt': f'Sitemap: {CANON}sitemap.xml\n',
+    'sitemap.xml': f'''<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>{CANON}</loc><lastmod>{TODAY}</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url>
+</urlset>''',
+    'llms.txt': f'''# HKDOTC.com — 香港OTC聯盟 HKOTC Alliance
+
+> Hong Kong OTC Alliance — alliance of Hong Kong's leading OTC Virtual Asset Service Providers (VASP), and the Hong Kong Web3 Cybersecurity Alliance (HKW3CA). Formerly at sites.google.com/view/hkdotc.
+
+- Website: {CANON}
+- Contact: WhatsApp +852-96981019 · Telegram @Com2049 · X.com @HKDOTC · Facebook.com/hkdotc
+- Address: Hankow Centre, 5-15 Hankow Road, Tsim Sha Tsui, Kowloon, Hong Kong
+- Services: OTC trading for BTC/ETH/USDT/USDC and major cryptocurrencies; KYC/AML compliant; fast settlement; no custody of client assets
+- Key pages: regulation updates (FSTB/SFC/stablecoin), OTC risk & legal guide, SFC licensed VATP list, member list
+''',
+}
+
+for name, content in pages.items():
+    f = SITE / name
+    f.parent.mkdir(parents=True, exist_ok=True)
+    f.write_text(content, encoding='utf-8')
+    print(f'  {name}: {len(content)//1024}KB')
+print('DONE')
